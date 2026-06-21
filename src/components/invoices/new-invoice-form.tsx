@@ -191,18 +191,19 @@ export function NewInvoiceForm({ clients }: NewInvoiceFormProps) {
             </button>
           </div>
 
-          {/* Column headers */}
-          <div className="mb-2 grid grid-cols-12 gap-3 text-xs font-medium uppercase tracking-wide text-slate-400">
+          {/* Column headers — hidden on mobile, visible sm+ */}
+          <div className="mb-2 hidden grid-cols-12 gap-3 text-xs font-medium uppercase tracking-wide text-slate-400 sm:grid">
             <div className="col-span-6">Description</div>
             <div className="col-span-2 text-right">Qty</div>
             <div className="col-span-3 text-right">Unit Price</div>
             <div className="col-span-1" />
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-3">
             {fields.map((field, idx) => (
-              <div key={field.id} className="grid grid-cols-12 gap-3 items-start">
-                <div className="col-span-6">
+              <div key={field.id} className="grid grid-cols-12 gap-2 items-start">
+                {/* Description: full width on mobile, 6/12 on sm+ */}
+                <div className="col-span-12 sm:col-span-6">
                   <input
                     {...register(`items.${idx}.description`)}
                     placeholder="Service or product description"
@@ -214,26 +215,29 @@ export function NewInvoiceForm({ clients }: NewInvoiceFormProps) {
                     </p>
                   )}
                 </div>
-                <div className="col-span-2">
+                {/* Qty: 5/12 on mobile, 2/12 on sm+ */}
+                <div className="col-span-5 sm:col-span-2">
                   <input
                     {...register(`items.${idx}.quantity`)}
                     type="number"
                     step="0.01"
                     min="0.01"
-                    placeholder="1"
+                    placeholder="Qty"
                     className="w-full rounded-lg border border-slate-200 px-3 py-2 text-right text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
                   />
                 </div>
-                <div className="col-span-3">
+                {/* Unit price: 6/12 on mobile, 3/12 on sm+ */}
+                <div className="col-span-6 sm:col-span-3">
                   <input
                     {...register(`items.${idx}.unitPrice`)}
                     type="number"
                     step="0.01"
                     min="0"
-                    placeholder="0.00"
+                    placeholder="Price"
                     className="w-full rounded-lg border border-slate-200 px-3 py-2 text-right text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
                   />
                 </div>
+                {/* Remove: 1/12 always */}
                 <div className="col-span-1 flex justify-center pt-2">
                   {fields.length > 1 && (
                     <button

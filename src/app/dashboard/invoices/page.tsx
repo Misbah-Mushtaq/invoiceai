@@ -46,7 +46,7 @@ export default async function InvoicesPage({ searchParams }: InvoicesPageProps) 
   return (
     <div className="space-y-6">
       {/* Page header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold text-slate-900">Invoices</h1>
           <p className="mt-0.5 text-sm text-slate-500">
@@ -56,7 +56,7 @@ export default async function InvoicesPage({ searchParams }: InvoicesPageProps) 
         </div>
         <Link
           href="/dashboard/invoices/new"
-          className="flex items-center gap-2 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-brand-700"
+          className="hidden items-center gap-2 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-brand-700 lg:flex"
         >
           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -65,8 +65,8 @@ export default async function InvoicesPage({ searchParams }: InvoicesPageProps) 
         </Link>
       </div>
 
-      {/* Status filter tabs */}
-      <div className="flex flex-wrap gap-1.5">
+      {/* Status filter tabs — horizontally scrollable on mobile */}
+      <div className="flex gap-1.5 overflow-x-auto pb-1 scrollbar-thin">
         {STATUS_TABS.map((tab) => {
           const isActive = (statusFilter ?? "") === tab.value;
           const href =
@@ -79,8 +79,8 @@ export default async function InvoicesPage({ searchParams }: InvoicesPageProps) 
               href={href}
               className={
                 isActive
-                  ? "rounded-full bg-brand-600 px-3.5 py-1.5 text-xs font-medium text-white"
-                  : "rounded-full bg-white px-3.5 py-1.5 text-xs font-medium text-slate-600 ring-1 ring-slate-200 transition hover:bg-slate-50"
+                  ? "shrink-0 rounded-full bg-brand-600 px-3.5 py-1.5 text-xs font-medium text-white"
+                  : "shrink-0 rounded-full bg-white px-3.5 py-1.5 text-xs font-medium text-slate-600 ring-1 ring-slate-200 transition hover:bg-slate-50"
               }
             >
               {tab.label}

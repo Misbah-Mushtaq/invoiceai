@@ -44,9 +44,10 @@ interface SidebarProps {
   userName?: string | null;
   userEmail?: string | null;
   userImage?: string | null;
+  onLinkClick?: () => void;
 }
 
-export function Sidebar({ userName, userEmail, userImage }: SidebarProps) {
+export function Sidebar({ userName, userEmail, userImage, onLinkClick }: SidebarProps) {
   const pathname = usePathname();
 
   return (
@@ -75,6 +76,7 @@ export function Sidebar({ userName, userEmail, userImage }: SidebarProps) {
             <Link
               key={item.href}
               href={item.href}
+              onClick={onLinkClick}
               className={cn(
                 "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                 isActive
@@ -116,7 +118,7 @@ export function Sidebar({ userName, userEmail, userImage }: SidebarProps) {
           </div>
         </div>
         <button
-          onClick={() => signOut({ callbackUrl: "/login" })}
+          onClick={() => { onLinkClick?.(); signOut({ callbackUrl: "/login" }); }}
           className="mt-1 flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-500 transition hover:bg-slate-50 hover:text-slate-700"
         >
           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
